@@ -1,10 +1,12 @@
-package Service;
+package libraryApp.Service;
 
-import Entity.Entities;
-import repository.RepositoryInterface;
+import libraryApp.Entity.Entities;
+import libraryApp.repository.RepositoryInterface;
+import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
+@Component
 public class LibraryService implements LibraryServiceInterface {
     private final RepositoryInterface repository;
 
@@ -70,7 +72,7 @@ public class LibraryService implements LibraryServiceInterface {
             // Buat dan tambahkan peminjaman
             repository.addPeminjaman(new Entities.Peminjaman(idPeminjaman, idAnggota, idBuku, new java.util.Date()));
             buku.get().pinjam(); // Kurangi stok buku
-            repository.updateBuku(buku.get()); // Update status buku di repository
+            repository.updateBuku(buku.get()); // Update status buku di libraryApp.repository
             return idPeminjaman; // Kembalikan ID peminjaman
         }
         throw new IllegalStateException("Buku tidak tersedia untuk dipinjam.");
@@ -85,7 +87,7 @@ public class LibraryService implements LibraryServiceInterface {
             Optional<Entities.Buku> buku = repository.findBukuById(peminjaman.get().getIdBuku());
             if (buku.isPresent()) {
                 buku.get().kembalikan(); // Tambahkan stok buku
-                repository.updateBuku(buku.get()); // Update status buku di repository
+                repository.updateBuku(buku.get()); // Update status buku di libraryApp.repository
                 repository.removePeminjaman(idPeminjaman); // Hapus data peminjaman
                 return true; // Berhasil mengembalikan buku
             }

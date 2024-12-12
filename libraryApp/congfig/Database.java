@@ -1,4 +1,4 @@
-package congfig;
+package libraryApp.congfig;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

@@ -1,6 +1,6 @@
-package repository;
+package libraryApp.repository;
 
-import Entity.Entities;
+import libraryApp.Entity.Entities;
 
 import java.util.List;
 import java.util.Optional;

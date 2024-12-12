@@ -1,7 +1,8 @@
-package repository;
+package libraryApp.repository;
 
-import Entity.Entities;
-import congfig.Database;
+import libraryApp.Entity.Entities;
+import libraryApp.congfig.Database;
+import org.springframework.stereotype.Component;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Component
 public class RepositoryImpl implements RepositoryInterface {
 
     private Database database; // Koneksi ke database

@@ -1,9 +1,11 @@
-package View;
+package libraryApp.View;
 
-import Service.LibraryServiceInterface;
+import libraryApp.Service.LibraryServiceInterface;
+import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
 
+@Component
 public class LibraryView implements LibraryViewInterface {
     private final LibraryServiceInterface service;
     private final Scanner scanner = new Scanner(System.in);
