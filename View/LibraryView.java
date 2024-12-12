@@ -16,25 +16,40 @@ public class LibraryView implements LibraryViewInterface {
     public void showMenu() {
         int pilihan;
         do {
-            System.out.println("\n=== Sistem Perpustakaan ===");
-            System.out.println("1. Registrasi Anggota");
-            System.out.println("2. Tambah Buku");
-            System.out.println("3. Pinjam Buku");
-            System.out.println("4. Kembalikan Buku");
-            System.out.println("5. Keluar");
-            System.out.print("Pilih menu: ");
+            showMainMenu();
             pilihan = scanner.nextInt();
             scanner.nextLine(); // Menghilangkan newline
 
             switch (pilihan) {
-                case 1 -> registerMember();
-                case 2 -> addBook();
-                case 3 -> borrowBook();
-                case 4 -> returnBook();
-                case 5 -> System.out.println("Terima kasih!");
-                default -> System.out.println("Pilihan tidak valid.");
+                case 1:
+                    registerMember();
+                    break;
+                case 2:
+                    addBook();
+                    break;
+                case 3:
+                    borrowBook();
+                    break;
+                case 4:
+                    returnBook();
+                    break;
+                case 0:
+                    System.out.println("Terima kasih!");
+                    break;
+                default:
+                    System.out.println("Pilihan tidak valid.");
             }
-        } while (pilihan != 5);
+        } while (pilihan != 0);
+    }
+
+    private void showMainMenu() {
+        System.out.println("\n=== Sistem Perpustakaan ===");
+        System.out.println("1. Registrasi Anggota");
+        System.out.println("2. Tambah Buku");
+        System.out.println("3. Pinjam Buku");
+        System.out.println("4. Kembalikan Buku");
+        System.out.println("0. Keluar");
+        System.out.print("Pilih menu: ");
     }
 
     private void registerMember() {
@@ -59,7 +74,7 @@ public class LibraryView implements LibraryViewInterface {
         int tahunTerbit = scanner.nextInt();
         System.out.print("Jumlah Stok: ");
         int stok = scanner.nextInt();
-        scanner.nextLine();
+        scanner.nextLine();  // Clear the newline
         String id = service.addBook(judul, pengarang, penerbit, tahunTerbit, stok);
         System.out.println("Buku berhasil ditambahkan dengan ID: " + id);
     }
@@ -69,8 +84,9 @@ public class LibraryView implements LibraryViewInterface {
         String idAnggota = scanner.nextLine();
         System.out.print("ID Buku: ");
         String idBuku = scanner.nextLine();
-        if (service.borrowBook(idAnggota, idBuku)) {
-            System.out.println("Buku berhasil dipinjam.");
+        String idPeminjaman = service.borrowBook(idAnggota, idBuku);
+        if (idPeminjaman != null) {
+            System.out.println("Buku berhasil dipinjam dengan ID Peminjaman: " + idPeminjaman);
         } else {
             System.out.println("Gagal meminjam buku.");
         }
